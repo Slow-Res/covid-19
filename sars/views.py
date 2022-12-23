@@ -13,12 +13,19 @@ def Home(request):
 
 
 def Country(request):
-    country = 'jordan'
+    
+    if request.GET.get('country') == None or request.GET.get('from') or request.GET.get('to'):
+        data= {"error" : "True" , "Message" : "Missing Data"}
+        return JsonResponse(data)
+    
+
+    country = request.GET['country']
+    from_date =  request.GET['from']
+    to_date = request.GET['to']
     PARAMS = {
-        "from" : request.GET['from'],
-        "to" :  request.GET['to']
+        "from" : from_date,
+        "to": to_date,  
     }
-    print(PARAMS)
     URL = f"https://api.covid19api.com/country/{country}/status/confirmed"
     r = requests.get(url = URL , params= PARAMS)    
     data = r.json()   
