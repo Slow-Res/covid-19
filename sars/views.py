@@ -13,8 +13,8 @@ def Home(request):
 
 
 def Country(request):
-    
-    if request.GET.get('country') == None or request.GET.get('from') or request.GET.get('to'):
+
+    if request.GET.get('country') == None or request.GET.get('from') == None or request.GET.get('to') == None:
         data= {"error" : "True" , "Message" : "Missing Data"}
         return JsonResponse(data)
     
